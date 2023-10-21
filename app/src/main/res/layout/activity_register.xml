@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_height="match_parent"
+    android:padding="15dp"
+    tools:context=".Register">
+
+
+    <ImageView
+        android:id="@+id/imageViewLogin"
+        android:layout_width="106dp"
+        android:layout_height="112dp"
+        android:contentDescription="Log In Icon"
+        android:src="@drawable/login" />
+
+    <TextView
+        android:id="@+id/textViewLogIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create New Account"
+        android:textColor="#224C98"
+        android:textSize="18sp"
+        android:layout_gravity="center"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/editTextFirstName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="First Name"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/editTextLastName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Last Name"
+        android:inputType="text" />
+    <EditText
+        android:id="@+id/editTextUTAID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="UTA ID"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/editTextProfession"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Profession"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/editTextRegistrationEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Email"
+        android:inputType="textEmailAddress" />
+
+    <EditText
+        android:id="@+id/editTextCreatePassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Create Password"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/editTextConfirmPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Confirm Password"
+        android:inputType="textPassword" />
+    <EditText
+        android:id="@+id/editTextsecurityQuestion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Security Question: Favourite Pet Name"
+        android:inputType="text" />
+
+    <Button
+        android:id="@+id/buttonCreateAccount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Create My Account"/>
+    <TextView
+        android:id="@+id/accLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Already have an account? Log In"
+        android:clickable="true"
+        android:textColor="#0073e6" />
+
+</LinearLayout>

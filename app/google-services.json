@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "461292319247",
+    "project_id": "sound-recognition-of-animals",
+    "storage_bucket": "sound-recognition-of-animals.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:461292319247:android:66fcea01aa42469d22697a",
+        "android_client_info": {
+          "package_name": "com.example.soundrecognitionofanimals"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQjgWRi68jw2X6xLIPMppahiVbYvoIqSw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
