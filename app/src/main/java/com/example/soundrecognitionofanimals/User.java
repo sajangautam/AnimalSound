@@ -7,17 +7,19 @@ public class User {
     private String utaId;
     private String profession;
     private String securityQuestion;
+    private String password;
 
     public User() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public User(String email, String firstName, String lastName, String utaId, String profession, String securityQuestion) {
+    public User(String email, String firstName, String lastName, String utaId, String profession, String password, String securityQuestion) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.utaId = utaId;
         this.profession = profession;
+        this.password = password;
         this.securityQuestion = securityQuestion;
     }
 
@@ -64,6 +66,13 @@ public class User {
 
     public void setProfession(String profession) {
         this.profession = profession;
+    }
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String email) {
+        this.password = password;
     }
 
     // Getter and Setter methods for the 'securityQuestion' field

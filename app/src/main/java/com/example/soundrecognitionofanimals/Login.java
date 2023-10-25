@@ -2,6 +2,7 @@ package com.example.soundrecognitionofanimals;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +16,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class Login extends AppCompatActivity {
     private EditText emailEditText, passwordEditText;
@@ -57,6 +64,12 @@ public class Login extends AppCompatActivity {
         });
 
         // Set an onClickListener for the Login button
+        // ... Previous code ...
+
+// Set an onClickListener for the Login button
+        // ... Previous code ...
+
+// Set an onClickListener for the Login button
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,26 +78,46 @@ public class Login extends AppCompatActivity {
                 String email = emailEditText.getText().toString().trim();
                 String password = passwordEditText.getText().toString().trim();
 
-                // Implement user login logic
-                firebaseAuth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                progressBar.setVisibility(View.GONE);
-                                if (task.isSuccessful()) {
-                                    // Login success, handle success
-                                    Toast.makeText(Login.this, "Login successful!", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                    startActivity(intent);
-                                    //finish();
-                                    // You can navigate to the next screen or perform any necessary actions.
-                                } else {
-                                    // Login failed, handle error
-                                    Toast.makeText(Login.this, "Login failed. Please check your credentials or Create Account if you are a new user.", Toast.LENGTH_SHORT).show();
+                if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
+                    Toast.makeText(Login.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
+                    return; // Stop the login process if any field is blank
+                } else {
+                    DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("users");
+                    Query query = usersRef.orderByChild("email").equalTo(email);
+
+                    query.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            progressBar.setVisibility(View.GONE);
+                            if (dataSnapshot.exists()) {
+                                // Email exists in the database, now check the password
+                                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                                    String storedPassword = userSnapshot.child("password").getValue(String.class);
+                                    if (password.equals(storedPassword)) {
+                                        // Password matches, login is successful
+                                        Toast.makeText(Login.this, "Login successful.", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(getApplicationContext(), Homepage.class);
+                                        intent.putExtra("userEmail", email);
+                                        startActivity(intent);
+                                        return; // Exit the login process
+                                    }
                                 }
+                                // Password doesn't match any user, show an error message
+                                Toast.makeText(Login.this, "Incorrect password. Please try again.", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(Login.this, "Login failed. Please check your credentials or Create Account.",  Toast.LENGTH_SHORT).show();
                             }
-                        });
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            Toast.makeText(getApplicationContext(), "Database error occurred", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
             }
         });
+
     }
 }

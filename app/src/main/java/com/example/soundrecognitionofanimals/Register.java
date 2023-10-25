@@ -108,7 +108,7 @@ public class Register extends AppCompatActivity {
                             String userKey = usersRef.push().getKey();
 
                             // Create a User object
-                            User user = new User(email, firstName, lastName, utaId, profession, securityQuestion);
+                            User user = new User(email, firstName, lastName, utaId, profession, password, securityQuestion);
 
                             // Store the user data under the user's email
                             usersRef.child(userKey).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {

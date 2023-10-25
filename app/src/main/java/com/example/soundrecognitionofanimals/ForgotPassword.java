@@ -1,5 +1,6 @@
 package com.example.soundrecognitionofanimals;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,7 +29,9 @@ public class ForgotPassword extends AppCompatActivity {
     private EditText emailEditText;
     private EditText securityAnswerEditText;
     private Button verifyUserButton;
+    private TextView textViewBackToLogIn;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +40,17 @@ public class ForgotPassword extends AppCompatActivity {
         emailEditText = findViewById(R.id.editTextEmailFp);
         securityAnswerEditText = findViewById(R.id.editTextsecurityQuestionFp);
         verifyUserButton = findViewById(R.id.buttonVerifyUser);
+        final String email = emailEditText.getText().toString().trim();
+        textViewBackToLogIn = findViewById(R.id.backToLogIn);
+
+        textViewBackToLogIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Login.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         verifyUserButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,18 +70,18 @@ public class ForgotPassword extends AppCompatActivity {
                 query.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        Log.d("ForgotPassword", "DataSnapshot exists: " + dataSnapshot.exists());
-
                         boolean userVerified = false; // Flag to track if the user has been verified
+                        DataSnapshot userSnapshot = null; // Declare userSnapshot outside the loop
 
-                        for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
-                            User user = userSnapshot.getValue(User.class);
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            User user = snapshot.getValue(User.class);
                             String storedSecurityQuestionAnswer = user.getSecurityQuestion();
 
                             // Compare the entered answer with the stored answer
                             if (enteredSecurityAnswer.equalsIgnoreCase(storedSecurityQuestionAnswer)) {
                                 // User is verified, no need to check further
                                 userVerified = true;
+                                userSnapshot = snapshot; // Assign the snapshot to userSnapshot
                                 break;
                             }
                         }
@@ -77,7 +91,14 @@ public class ForgotPassword extends AppCompatActivity {
                             // You can send a password reset email to the entered email
                             // using Firebase Authentication's sendPasswordResetEmail method.
                             // Provide a UI feedback to the user.
-                            Toast.makeText(ForgotPassword.this, "User Verified. Password reset email sent.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ForgotPassword.this, "User Verified.", Toast.LENGTH_SHORT).show();
+
+                            // Update the security question in the database to "crocodile"
+                            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users").child(userSnapshot.getKey());
+
+                            Intent intent = new Intent(getApplicationContext(), CreateNewPassword.class);
+                            intent.putExtra("userEmail", enteredEmail);
+                            startActivity(intent);
                         } else if (dataSnapshot.exists()) {
                             // User exists but security question does not match
                             Toast.makeText(ForgotPassword.this, "User not verified. Please check your security answer.", Toast.LENGTH_SHORT).show();
@@ -86,7 +107,6 @@ public class ForgotPassword extends AppCompatActivity {
                             Toast.makeText(ForgotPassword.this, "User not found. Please register first.", Toast.LENGTH_SHORT).show();
                         }
                     }
-
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
                         // Handle any database error if necessary
