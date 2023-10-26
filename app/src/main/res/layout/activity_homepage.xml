@@ -17,75 +17,81 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="15dp"
-        android:gravity="center">
+        android:gravity="center"
+        android:padding="15dp">
 
-        <!-- First Row of Buttons -->
-
-        <!-- Second Row of Buttons -->
-
-
+        <!-- Title -->
         <TextView
-            android:id="@+id/textViewLogIn"
+            android:id="@+id/textViewTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="-50dp"
+            android:fontFamily="monospace"
             android:text="Animal Sound Recognition"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:textColor="#F8F8FF"
-            android:textSize="30sp"
-            android:textStyle="bold" />
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp" />
 
-        <Button
-            android:layout_width="200dp"
-            android:layout_height="68dp"
-            android:text="Profile" />
-
-        <Button
-            android:layout_width="201dp"
-            android:layout_height="69dp"
-            android:text="Recognize Sound" />
-
-        <Button
-            android:layout_width="196dp"
-            android:layout_height="67dp"
-            android:text="My Activities" />
-
+        <!-- First Row of Buttons -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:gravity="center_horizontal"
             android:orientation="horizontal">
 
-            <!-- Profile Button -->
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Profile"
+                android:layout_marginRight="8dp" />
 
-            <!-- Recognize Sound Button -->
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Recognize Sound"
+                android:layout_marginRight="8dp" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="My Activities" />
 
         </LinearLayout>
 
+        <!-- TextView and other elements... -->
+
+        <!-- Second Row of Buttons -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
-
-            <!-- My Activities Button -->
-
-            <!-- Version Button -->
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
 
             <Button
-                android:layout_width="203dp"
-                android:layout_height="65dp"
-                android:text="Version" />
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Version"
+                android:layout_marginRight="8dp" />
+
+            <!-- Add more buttons here if needed -->
 
         </LinearLayout>
 
         <!-- Third Row for the Log Out Button -->
-
         <Button
             android:id="@+id/logOutButton"
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Log Out" />
+            android:text="Log Out"
+            android:layout_marginTop="16dp" />
+
+        <!-- Add more rows of buttons here if needed -->
+
     </LinearLayout>
 </RelativeLayout>
