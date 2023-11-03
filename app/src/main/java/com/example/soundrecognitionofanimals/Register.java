@@ -117,6 +117,9 @@ public class Register extends AppCompatActivity {
                                     if (task.isSuccessful()) {
                                         // Data stored successfully
                                         Toast.makeText(getApplicationContext(), "Created new account for " + firstName + ".", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(getApplicationContext(), Login.class);
+                                        startActivity(intent);
+                                        finish();
                                     } else {
                                         // Handle the case where data storage failed
                                         Toast.makeText(getApplicationContext(), "Account creation failed. Please check your connection.", Toast.LENGTH_SHORT).show();
