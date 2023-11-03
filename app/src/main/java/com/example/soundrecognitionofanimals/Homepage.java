@@ -1,5 +1,4 @@
 package com.example.soundrecognitionofanimals;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,14 +13,18 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+
+
 public class Homepage extends AppCompatActivity {
     Button buttonLogOut;
+    Button buttonProfile;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
         buttonLogOut = findViewById(R.id.logOutButton);
+        buttonProfile = findViewById(R.id.profileButton);
 
         buttonLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -32,6 +35,14 @@ public class Homepage extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), Login.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+        buttonProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle the click event for the Profile button
+                Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                startActivity(intent);
             }
         });
     }
