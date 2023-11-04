@@ -16,53 +16,114 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:contentDescription="Profile Picture"/>
+        android:contentDescription="@string/profile_picture"
+        android:layout_marginTop="32dp"/>
 
-    <!-- User Name -->
-    <TextView
-        android:id="@+id/textViewUserName"
+    <!-- Button to select profile picture -->
+    <Button
+        android:id="@+id/buttonSelectImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="John Doe"
-        android:textSize="18sp"
+        android:text="@string/select_image"
         app:layout_constraintTop_toBottomOf="@+id/imageViewProfile"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="8dp" />
+
+    <!-- First Name -->
+    <EditText
+        android:id="@+id/editTextFirstName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/first_name"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@+id/buttonSelectImage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:inputType="textPersonName"/>
+
+    <!-- Last Name -->
+    <EditText
+        android:id="@+id/editTextLastName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/last_name"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@+id/editTextFirstName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:inputType="textPersonName"/>
 
     <!-- Email -->
-    <TextView
-        android:id="@+id/textViewEmail"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/editTextEmail"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="john.doe@example.com"
-        android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@+id/textViewUserName"
+        android:hint="@string/email"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@+id/editTextLastName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"/>
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:inputType="textEmailAddress"/>
 
-    <!-- Edit Profile Button -->
+    <!-- UTA ID -->
+    <EditText
+        android:id="@+id/editTextUtaId"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/uta_id"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@+id/editTextEmail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:inputType="number"/>
+
+    <!-- Profession -->
+    <EditText
+        android:id="@+id/editTextProfession"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/profession"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@+id/editTextUtaId"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:inputType="text"/>
+
+    <!-- Save Profile Button -->
     <Button
-        android:id="@+id/buttonEditProfile"
+        android:id="@+id/buttonSaveProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Edit Profile"
-        app:layout_constraintTop_toBottomOf="@+id/textViewEmail"
+        android:text="@string/save_profile"
+        app:layout_constraintTop_toBottomOf="@+id/editTextProfession"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
-
-    <!-- Select Image Button -->
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="32dp" />
     <Button
-        android:id="@+id/selectImageButton"
+        android:id="@+id/buttonBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select Image"
-        app:layout_constraintTop_toBottomOf="@+id/buttonEditProfile"
+        android:text="@string/back"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
-
+        android:layout_marginBottom="16dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
