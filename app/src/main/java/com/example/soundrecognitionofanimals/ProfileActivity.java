@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -31,6 +33,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +53,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         buttonSaveProfile = findViewById(R.id.buttonSaveProfile);
         buttonSelectImage = findViewById(R.id.buttonSelectImage); // Make sure this ID matches your button in XML
-
+        String userEmail = getIntent().getStringExtra("userEmail");
         buttonSelectImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,73 +78,76 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        loadUserData();
+        loadUserData(userEmail);
     }
 
-    private void loadUserData() {
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser != null) {
-            String userId = currentUser.getUid();
-            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(userId);
+    private void loadUserData(String userEmail) {
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("users");
 
-            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    // Check if user data exists
-                    if (dataSnapshot.exists()) {
-                        // Get user information
-                        User user = dataSnapshot.getValue(User.class);
+        // Query the database to find the user with the specified email
+        Query query = usersRef.orderByChild("email").equalTo(userEmail);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    // Get the user information
+                    for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                        User user = userSnapshot.getValue(User.class);
                         if (user != null) {
                             // Set user info to EditText fields
-                            editTextFirstName.setText(user.getFirstName());
-                            editTextLastName.setText(user.getLastName());
+                            editTextFirstName.setText(user.getFirstName()); // Set hint with the user's first name
+                            editTextLastName.setText(user.getLastName()); // You can set text directly if needed
                             editTextEmail.setText(user.getEmail());
                             editTextUtaId.setText(user.getUtaId());
                             editTextProfession.setText(user.getProfession());
                             // If you also need to set the security question, do it here
                             // editTextSecurityQuestion.setText(user.getSecurityQuestion());
-                        } else {
-                            Toast.makeText(ProfileActivity.this, "User data is null.", Toast.LENGTH_LONG).show();
+                            return; // Exit the loop once the user is found
                         }
-                    } else {
-                        Toast.makeText(ProfileActivity.this, "Can't find user data.", Toast.LENGTH_LONG).show();
                     }
+                } else {
+                    Toast.makeText(ProfileActivity.this, "Can't find user data.", Toast.LENGTH_LONG).show();
                 }
+            }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Toast.makeText(ProfileActivity.this, databaseError.getMessage(), Toast.LENGTH_LONG).show();
-                }
-            });
-        } else {
-            // No user is signed in
-            Toast.makeText(ProfileActivity.this, "No signed in user.", Toast.LENGTH_LONG).show();
-        }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(ProfileActivity.this, databaseError.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
-
     private void saveUserProfile() {
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-        if (user != null) {
-            String userId = user.getUid();
-            User updatedUser = new User(
-                    editTextEmail.getText().toString().trim(),
-                    editTextFirstName.getText().toString().trim(),
-                    editTextLastName.getText().toString().trim(),
-                    editTextUtaId.getText().toString().trim(),
-                    editTextProfession.getText().toString().trim(),
-                    null, // Assuming password and securityQuestion are handled elsewhere
-                    null
-            );
+        String userEmail = getIntent().getStringExtra("userEmail");
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("users");
+        Query query = usersRef.orderByChild("email").equalTo(userEmail);
 
-            databaseReference.child(userId).setValue(updatedUser).addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    Toast.makeText(ProfileActivity.this, "Profile updated successfully!", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(ProfileActivity.this, "Failed to update profile.", Toast.LENGTH_SHORT).show();
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                DataSnapshot userSnapshot = null; // Declare userSnapshot outside the loop
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    User user = snapshot.getValue(User.class);
+                    userSnapshot = snapshot;
                 }
-            });
-        }
+                DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users").child(userSnapshot.getKey());
+                userRef.child("firstName").setValue(editTextFirstName.getText().toString().trim());
+                userRef.child("lastName").setValue(editTextLastName.getText().toString().trim());
+                userRef.child("profession").setValue(editTextProfession.getText().toString().trim());
+                userRef.child("utaId").setValue(editTextUtaId.getText().toString().trim());
+                Toast.makeText(ProfileActivity.this, "Profile updated successfully!", Toast.LENGTH_SHORT).show();
+
+
+                Intent intent = new Intent(getApplicationContext(), Homepage.class);
+                intent.putExtra("userEmail", userEmail);
+                startActivity(intent);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(ProfileActivity.this, "Failed to update profile.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void openImagePicker() {

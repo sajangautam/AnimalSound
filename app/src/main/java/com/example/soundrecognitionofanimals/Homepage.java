@@ -42,6 +42,7 @@ public class Homepage extends AppCompatActivity {
             public void onClick(View v) {
                 // Handle the click event for the Profile button
                 Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                intent.putExtra("userEmail", getIntent().getStringExtra("userEmail"));
                 startActivity(intent);
             }
         });
