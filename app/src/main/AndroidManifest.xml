@@ -46,6 +46,8 @@
             android:name=".MainActivity"
             android:exported="true">
         </activity>
+        <activity android:name=".VersionActivity"
+            android:exported="false"/>
 
 
     </application>
