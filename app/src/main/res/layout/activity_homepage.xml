@@ -10,9 +10,9 @@
         android:layout_height="match_parent"
         android:src="@drawable/sound"
         android:scaleType="centerCrop"
-        android:alpha="0.5" /> <!-- Adjust alpha for transparency -->
+        android:alpha="0.5" />
 
-    <!-- Content Layout (inside the RelativeLayout for layering) -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

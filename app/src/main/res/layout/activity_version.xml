@@ -2,14 +2,33 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/versionbackground"
     android:orientation="vertical"
+    android:gravity="center"
     android:padding="16dp">
 
     <TextView
         android:id="@+id/textViewVersionInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:text="Version Information will be displayed here" />
+        android:textSize="18sp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:text="Version Information will be displayed here"
+        android:layout_marginBottom="20dp"
+        android:gravity="center" />
+
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/holo_blue_light"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:text="Back"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"/>
 
 </LinearLayout>

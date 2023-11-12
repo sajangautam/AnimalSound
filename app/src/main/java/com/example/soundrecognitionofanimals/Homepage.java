@@ -26,7 +26,7 @@ public class Homepage extends AppCompatActivity {
 
         buttonLogOut = findViewById(R.id.logOutButton);
         buttonProfile = findViewById(R.id.profileButton);
-        buttonVersion = findViewById(R.id.VersionButton); // Find the version button
+        buttonVersion = findViewById(R.id.VersionButton);
 
         buttonLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
