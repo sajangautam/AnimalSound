@@ -16,7 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 public class Homepage extends AppCompatActivity {
-    Button buttonLogOut, buttonProfile, buttonVersion;
+    Button buttonLogOut, buttonProfile, buttonVersion, buttonRecognizeSound;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -27,7 +27,7 @@ public class Homepage extends AppCompatActivity {
         buttonLogOut = findViewById(R.id.logOutButton);
         buttonProfile = findViewById(R.id.profileButton);
         buttonVersion = findViewById(R.id.VersionButton);
-
+        buttonRecognizeSound = findViewById(R.id.RecognizeSound);
         buttonLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,6 +53,14 @@ public class Homepage extends AppCompatActivity {
             public void onClick(View v) {
                 // Redirect to VersionActivity
                 Intent intent = new Intent(getApplicationContext(), VersionActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        buttonRecognizeSound.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), RecognizeSound.class);
                 startActivity(intent);
             }
         });
