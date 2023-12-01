@@ -41,7 +41,7 @@ public class RecognizeSound extends AppCompatActivity {
         setContentView(R.layout.activity_recognizesound);
 
         buttonRecord = findViewById(R.id.buttonRecord);
-        buttonPlay = findViewById(R.id.buttonPlay); // Assuming you have a buttonPlay in your layout
+        buttonPlay = findViewById(R.id.buttonPlay);
         buttonBack = findViewById(R.id.buttonBack);
         spinnerRecordings = findViewById(R.id.spinnerRecordings);
 
@@ -77,17 +77,18 @@ public class RecognizeSound extends AppCompatActivity {
         buttonPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isPlaying) {
+                if (!isPlaying) {
+                    playSelectedRecording();
+                    buttonPlay.setText("Stop");
+                    isPlaying = true;
+                } else {
                     stopPlaying();
                     buttonPlay.setText("Play");
                     isPlaying = false;
-                } else {
-                    startPlaying();
-                    buttonPlay.setText("Stop");
-                    isPlaying = true;
                 }
             }
         });
+
 
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,37 +119,41 @@ public class RecognizeSound extends AppCompatActivity {
         }
         updateRecordingsList();
     }
-
     private void playSelectedRecording() {
         int selectedPosition = spinnerRecordings.getSelectedItemPosition();
+        // Ensure the selection is valid (excluding the "Select a recording" placeholder)
         if (selectedPosition > 0 && selectedPosition <= recordedFiles.size()) {
-            String selectedFile = recordedFiles.get(selectedPosition - 1); // Adjust for prompt
-            playRecording(selectedFile);
+            String selectedFile = recordedFiles.get(selectedPosition - 1); // Adjust for the placeholder
+            Log.d("RecognizeSound", "Selected file for playback: " + selectedFile);
+            startPlaying(selectedFile); // Start playing the selected file
         } else {
             Toast.makeText(this, "Please select a recording", Toast.LENGTH_SHORT).show();
         }
     }
-
-
-
     private void playRecording(String filePath) {
         if (player == null) {
             player = new MediaPlayer();
+        } else {
+            player.reset();
         }
 
         try {
-            player.reset(); // Reset the MediaPlayer to its uninitialized state
             player.setDataSource(filePath);
             player.prepare();
             player.start();
+
+            player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    // Audio has finished playing
+                    stopPlaying();
+                }
+            });
         } catch (IOException e) {
             Log.e("RecognizeSound", "Could not start playback", e);
             Toast.makeText(this, "Playback failed", Toast.LENGTH_SHORT).show();
         }
     }
-
-
-
     private void stopRecording() {
         try {
             recorder.stop();
@@ -162,22 +167,35 @@ public class RecognizeSound extends AppCompatActivity {
             Toast.makeText(this, "Failed to save the recording", Toast.LENGTH_SHORT).show();
         }
     }
-
-
-    private void startPlaying() {
+    private void startPlaying(String filePath) {
+        if (player != null) {
+            player.release();
+        }
         player = new MediaPlayer();
+
         try {
-            player.setDataSource(fileName);
+            player.setDataSource(filePath);
             player.prepare();
             player.start();
+
+            player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    stopPlaying();
+                }
+            });
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e("RecognizeSound", "Could not start playback", e);
+            Toast.makeText(this, "Playback failed", Toast.LENGTH_SHORT).show();
         }
     }
-
     private void stopPlaying() {
-        player.release();
-        player = null;
+        if (player != null) {
+            player.release();
+            player = null;
+        }
+        isPlaying = false;
+        buttonPlay.setText("Play");
     }
 
     private boolean checkPermissions() {
@@ -208,5 +226,6 @@ public class RecognizeSound extends AppCompatActivity {
         }
         recordingsAdapter.notifyDataSetChanged();
     }
+
 
 }
