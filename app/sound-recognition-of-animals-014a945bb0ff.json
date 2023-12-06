@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "sound-recognition-of-animals",
+  "private_key_id": "014a945bb0ff6c60f624dacde1ba3274beecbdfe",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDgmVoOh2VD1jPv\nw6687ZY/JbqEbVGzaNhkmeoscp+dbH7xfSEwa4znRDS5g5AiJ152xZueC8TYKSC/\nT0VdwKxvA44P63gTbaoVLJYGkdG5XwGbukC+TNUpKfSXAk132ZnCy8Z3WjyFo3Th\nEp3GNxU+ml0kxP7p1VH+RwFYoaQGJ79PJQf1JqMRdNMkDkUc4I4tWcnLGJcIeBOO\nfZHsG+u7Zh0NLMzbJqfjNsBjhiZFMCUq+QwuPtqNKlJp20jR5WIMzFMDaOcd4L13\nqlHTUN0ebTQV1oOiBaYGtwcMjeFciyRYGxp3McJL8iKAbUJ0HWy0X6C+EBp+ENv9\nqdTi+0ubAgMBAAECggEAZ7FFK6oE7aHKTqrIVL9X+4V+rD8QVkVUinWo8KZm3LZH\nkVRU61bsMaWCthdwhuQoL6uh4gDK+4VZchm2C8e1lHdOsjjjMg0SVj5EcXoHGo8r\nXetKktFEJIITQ1izzV5wJ8gOs/G8OXKytmry3p11uHZqBFzS18A936iGjZXq9U+s\n7ao0hNW5q5mZ+AnMBBxjIvDjAqgV0h5379GIAji+EeLH8Js3OWktV+AAOGubIJf9\nC8YkDHum27GPch0CYomCBqjxGSU/PX0MUEBcyB0VJVzpADmNdxSsNLtbpnhyOCrk\nAKqXdpPR/dgqhIGt2e1/sDOaB1N/OGKyzlDDPO4biQKBgQD4azIrQal6aciYs2WL\nfiIIkNfoV3hIzxJdzLFlJdFFUaKsmamjAuF4KekTLCPAYjQUMtKJBt91kETcx1A+\nhSEb0c12j3O0MdQsJ0WQHaXtTPqqfoDlH/817N65i7f62h4N1FKfDiKQvu60OE7s\nqHXpsgWa9965a4ML92z240ozbQKBgQDndA+tn+Zj/yOFf9TUvxHZy0dbfISKnbTr\nhfeHnu8PEY1GPJvLX8R05jpGbAD99dfH3p0vi/3a2mOxugbPUIyy3cqEEfYXriwl\nLGDjyTJO5+kWfRNj5xa/fFdl/7azDcis3AIDx+2xNgSAk6wX+96pr6/Jy7r02/LE\nD4O2s2OOJwKBgBp4GY1gXrWLZfNXUh+N3gR5onfAMjHX1oYmFFTJtcWkEChB60BS\nQ0HxfUMstdZ+4DuyupodIFw/dgbsOdGfj8qODU1vtY1irc/Sk2fqsM5bIG5gMk23\nnhLZ3VV53K2e5grlL7SA5g/0OCz9vvMadA3liRFdDd9F5F23DGY2C6b1AoGAUVK7\nS4MaXVpBLd/7dQDpkb/WA7QdkeLVtcdtcK6MSpwdKmeTSgMNMRHPufyq4JCnz6dN\nTW5/tIz1aHX3fJJNzW8WgA8bi7h79FfCd2azEXx0rp0l2f1RRdi3kLQnioQ2VV48\nKv3ta02SiWbZmde6pZ6AQoQd3XkGtJLK8b/YJBMCgYEAkVadSsXnVs5u7qFefOzT\nniFtNF75MTQ2cZ4WaleZ1mA45fRBdoRuLhJcc052PgE9/XxTHa2NO0MDHSDlxi4b\nnyRftl02eIgRXcJEYc6vUt9jMWFzffWvyJBI5otfnk0zG4g/qvH9EPmHrYpQzy3s\nCy5gwWThi7DaPb/nqZvFUM8=\n-----END PRIVATE KEY-----\n",
+  "client_email": "animal-sound@sound-recognition-of-animals.iam.gserviceaccount.com",
+  "client_id": "113866056904428670728",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/animal-sound%40sound-recognition-of-animals.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

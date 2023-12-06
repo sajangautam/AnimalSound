@@ -1,6 +1,5 @@
 package com.example.soundrecognitionofanimals;
 
-import android.content.ClipData;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -24,9 +23,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import java.util.ArrayList;
-import java.util.List;
-
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -37,8 +33,6 @@ public class ProfileActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
-
-    private List<Uri> selectedImages = new ArrayList<>();
 
 
     @Override
@@ -142,22 +136,13 @@ public class ProfileActivity extends AppCompatActivity {
                 userRef.child("lastName").setValue(editTextLastName.getText().toString().trim());
                 userRef.child("profession").setValue(editTextProfession.getText().toString().trim());
                 userRef.child("utaId").setValue(editTextUtaId.getText().toString().trim());
-
-                // Save the selected image URIs to the user's profile
-                for (int i = 0; i < selectedImages.size(); i++) {
-                    String uriString = selectedImages.get(i).toString();
-                    // Create a unique key for each image or use a specific naming convention
-                    String imageKey = "image" + i;
-                    userRef.child("profileImages").child(imageKey).setValue(uriString);
-                }
-
                 Toast.makeText(ProfileActivity.this, "Profile updated successfully!", Toast.LENGTH_SHORT).show();
+
 
                 Intent intent = new Intent(getApplicationContext(), Homepage.class);
                 intent.putExtra("userEmail", userEmail);
                 startActivity(intent);
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Toast.makeText(ProfileActivity.this, "Failed to update profile.", Toast.LENGTH_SHORT).show();
@@ -165,44 +150,18 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
-
     private void openImagePicker() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        intent.setType("image/*"); // Limit selection to images only
-        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true); // Allow multiple image selection
         startActivityForResult(intent, REQUEST_IMAGE_PICKER);
     }
-
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE_PICKER && resultCode == RESULT_OK) {
-            if (data != null) {
-                // Handle single or multiple image selection
-                if (data.getData() != null) {
-                    // Single image selected
-                    Uri selectedImageUri = data.getData();
-                    selectedImages.add(selectedImageUri);
-
-                    // Load the selected image into the profile picture ImageView
-                    imageViewProfile.setImageURI(selectedImageUri);
-                } else {
-                    // Multiple images selected
-                    ClipData clipData = data.getClipData();
-                    if (clipData != null) {
-                        for (int i = 0; i < clipData.getItemCount(); i++) {
-                            Uri selectedImageUri = clipData.getItemAt(i).getUri();
-                            selectedImages.add(selectedImageUri);
-                        }
-                    }
-                }
-            }
+            Uri selectedImageUri = data.getData();
+            imageViewProfile.setImageURI(selectedImageUri);
         }
     }
-
-
-
 
 }

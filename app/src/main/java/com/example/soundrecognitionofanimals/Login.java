@@ -83,6 +83,7 @@ public class Login extends AppCompatActivity {
                                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                                     String storedPassword = userSnapshot.child("password").getValue(String.class);
                                     if (password.equals(storedPassword)) {
+                                        wipeDataInCurrentSession();
                                         Toast.makeText(Login.this, "Login successful.", Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent(getApplicationContext(), Homepage.class);
                                         intent.putExtra("userEmail", email);
@@ -105,5 +106,15 @@ public class Login extends AppCompatActivity {
                 }
             }
         });
+    }
+    private void wipeDataInCurrentSession() {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference currentSessionRef = database.getReference("currentSession");
+
+        // Assuming you have a unique identifier for each session
+        String sessionId = "unique_session_id"; // Replace with your actual session ID
+
+        // Remove the data under the current session ID
+        currentSessionRef.child(sessionId).removeValue();
     }
 }

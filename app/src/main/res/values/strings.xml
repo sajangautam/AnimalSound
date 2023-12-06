@@ -11,4 +11,6 @@
     <string name="select_image">Select Image</string>
     <string name="back">Back</string>
 
+    <string name="animal_image_description">Animal Image Description</string>
+
 </resources>

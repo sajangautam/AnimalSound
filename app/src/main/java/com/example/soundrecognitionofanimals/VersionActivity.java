@@ -33,7 +33,7 @@ public class VersionActivity extends AppCompatActivity {
 
         textViewVersionInfo.setText(versionInfo);
 
-        backButton = findViewById(R.id.backButton);
+        backButton = findViewById(R.id.buttonBack);
         backButton.setOnClickListener(new View.OnClickListener()
         {
             @Override

@@ -53,6 +53,9 @@
         <activity
             android:name=".RecognizeSound"
             android:exported="false" />
+        <activity
+            android:name=".MyActivities"
+            android:exported="false" />
 
 
 
