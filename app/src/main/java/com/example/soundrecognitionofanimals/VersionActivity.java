@@ -28,8 +28,12 @@ public class VersionActivity extends AppCompatActivity {
         String versionInfo = "Model Name: Animal Sound Classifier\n" +
                 "Version Number: 1.0.0\n" +
                 "Description: Classifies animal sounds.\n" +
+                "Google's speech to text API.\n" +
+                "Firebase Authentication.\n" +
+                "JDK 21.\n" +
+                "Android Studio 4.2.\n" +
                 "Accuracy: 95%\n" +
-                "Release Notes: Initial release with basic functionality.";
+                "Release Notes: Final Version.";
 
         textViewVersionInfo.setText(versionInfo);
 
